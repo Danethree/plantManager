@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react';
 import{
     SafeAreaView, 
@@ -8,8 +9,8 @@ import{
     TextInput,
     KeyboardAvoidingView,
     Platform,
-    
-    Keyboard
+    Keyboard,
+    Alert
     
 } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -45,10 +46,18 @@ export function UserIdentification()
  }
 
 
- function handleSubmit()
+ async function handleSubmit()
  {
-   
-     navigation.navigate('Confirmation')
+    if(!name)
+    {
+        return Alert.alert('Me diga como eu devo te chamar 😥')
+    }
+    else
+    {
+       await AsyncStorage.setItem('@plantmanager:user',name)
+        navigation.navigate('Confirmation')
+    }
+    
  }
 
     return (
