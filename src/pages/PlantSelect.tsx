@@ -1,11 +1,15 @@
-//import React { useEffect, useState,AnimationEventHandler} from 'react'
-import React, { useEffect, useState } from 'react'
-import { View,Text,StyleSheet,FlatList,Image} from 'react-native'
+
+import { Text,StyleSheet,FlatList,Image, View} from 'react-native'
 import colors from '../styles/colors'
 import {Header} from '../components/Header'
+import React, { useEffect, useState } from 'react'
 import fonts from '../styles/fonts'
 import { EnvironmentButton } from '../components/EnvironmentButton'
 import api from '../Services/api'
+
+import {} from 'react'
+
+
 import { PlantCardPrimary } from '../components/PlantCardPrimary'
 interface EnvironmentProps
     {
@@ -32,12 +36,29 @@ export function PlantSelect()
     const [environment,setEnvironments] = useState<EnvironmentProps[]>([])
    // const [plants,setPlants] = useState<PlantProps[]>([])
     const[plants,setPlants] = useState<PlantProps[]>([])
+    const[filteredPlants,setFilteredPlants] = useState<PlantProps[]>([])
+    const [environmentSelected, setEnvironmentSelected] = useState('all')
 
-
-   
+        function handleEnvironmentSelected(environment:string)
+        {   
+            setEnvironmentSelected(environment)
+            if(environment ==="all")
+            {
+                return setFilteredPlants(plants)
+            }
+            const filtered = plants.filter(plant=>
+                plant.environments.includes(environment));
+            setFilteredPlants(filtered);
+        }
+        useEffect(()=>{
+            async function fetchPlants()
+            {
+                const{data} = await api.get(`plants?_sort=name&order=asc`)
+            }
+        })
         useEffect(()=>{
         async function fetchEnvironment() {
-            const {data} = await api.get('plants_environments')
+            const {data} = await api.get('plants_environments?_sort=title&_order=asc')
             setEnvironments([
                 {
                     key:'all',
@@ -51,16 +72,20 @@ export function PlantSelect()
     },[])
     useEffect(() => {
         async function fetchPlants() {
-            const {data} = await api.get('plants')
+            const {data} = await api.get('plants?_sort=name&_order=asc')
             setPlants(data)
         }
         fetchPlants()
     },[])
 
     return (
+       
           <View style = {styles.container}>
+        
               <View style = {styles.header}>
-                        <Header></Header>
+                 
+
+                       <Header></Header>
                         <Text style = {styles.title}>Em qual ambiente </Text>
                         <Text style = {styles.subtitle}>você quer colocar sua planta?</Text>
                  </View>
@@ -69,37 +94,40 @@ export function PlantSelect()
                     data = {environment}
                     
                     renderItem = {( {item})=> (
-                        <EnvironmentButton 
+                        <EnvironmentButton
                         title={item.title}
-                      
+                        active = {item.key===environmentSelected}
+                        onPress = {() => handleEnvironmentSelected(item.key)}
                       />
                     )}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.environmentList}
+                  
                     ListHeaderComponent={<View />}
                     ListHeaderComponentStyle={{ marginRight: 32 }}
+                  
                   />
 
                     
                     
-                  
+             
+
+                   
+                </View>
+                             
                 <View style = {styles.plants}>
                     <FlatList
-                    data = {plants}
+                    data = {filteredPlants}
                     
                     renderItem = {({item})=> (
                         <PlantCardPrimary data = {item}/>
+                       
                     )}
                     
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
                    
                     />
-
-                   
-                </View>
-
                 </View>
 
 
