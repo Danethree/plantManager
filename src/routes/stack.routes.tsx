@@ -6,27 +6,32 @@ import { color } from 'react-native-reanimated'
 import { UserIdentification } from '../pages/UserIdentification';
 import { Confirmation } from '../pages/Confirmation';
 import { Welcome } from '../pages/Welcome';
+import { PlantSelect } from '../pages/PlantSelect';
 
 const stackRoutes = createStackNavigator();
 const AppRoutes: React.FC = () =>(
     <stackRoutes.Navigator
-        headerMode = "none"
-        screenOptions = {{
-            cardStyle:{
-                backgroundColor: colors.white
-            },
+                headerMode = "none"
+                screenOptions = {{
+                    cardStyle:{
+                        backgroundColor: colors.white
+                    },
         }}>
             <stackRoutes.Screen
-               name = 'Welcome'
-               component = {Welcome}
+                    name = 'Welcome'
+                    component = {Welcome}
             />
                     <stackRoutes.Screen
-               name = 'UserIdentification'
-               component = {UserIdentification}
+                    name = 'UserIdentification'
+                    component = {UserIdentification}
             />
                 <stackRoutes.Screen
-               name = 'Confirmation'
-               component = {Confirmation}
+                    name = 'Confirmation'
+                    component = {Confirmation}
+            />
+            <stackRoutes.Screen 
+                    name = "PlantSelect"
+                    component={PlantSelect}
             />
            
         </stackRoutes.Navigator>
