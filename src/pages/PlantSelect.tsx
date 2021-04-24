@@ -13,6 +13,7 @@ import {} from 'react'
 import { PlantCardPrimary } from '../components/PlantCardPrimary'
 import { Load } from '../components/Load'
 import { color } from 'react-native-reanimated'
+import { useNavigation } from '@react-navigation/core'
 interface EnvironmentProps
     {
         key:string
@@ -43,7 +44,7 @@ export function PlantSelect()
     const [loading,setLoading] = useState(true)
     const [page,setPage] = useState(1)
     const [loadingMore,setLoadingMore] = useState(false)
-   
+    const navigation = useNavigation()
         function handleEnvironmentSelected(environment:string)
         {   
             setEnvironmentSelected(environment)
@@ -67,6 +68,11 @@ export function PlantSelect()
                 setPage(oldValue => oldValue + 1)
                 fetchPlants()
             }
+        }
+
+        function  handlePlantSelect(plant:PlantProps)
+        {
+            navigation.navigate('PlantSave',{plant})
         }
 
         useEffect(()=>{
@@ -163,7 +169,11 @@ export function PlantSelect()
                     data = {filteredPlants}
                     
                     renderItem = {({item})=> (
-                        <PlantCardPrimary data = {item}/>
+                        <PlantCardPrimary 
+                        data = {item}
+                        onPress = {()=>handlePlantSelect(item)}
+                        />
+                      
                        
                     )}
                     
