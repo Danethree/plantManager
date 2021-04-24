@@ -14,12 +14,13 @@ export interface PlantProps
         {
             times: number,
             repeat_every: string
-        }
+        };
         dateTimeNotification:Date
+        hour:string
 
 }
 
-interface StoragePlantProps{
+export interface StoragePlantProps{
     [id: string]:
     {
         data: PlantProps;
@@ -28,6 +29,17 @@ interface StoragePlantProps{
 export async function savePlant(plant:PlantProps):Promise<void>
 {
     try{
+
+        const nextTime = new Date(plant.dateTimeNotification)
+        const now = new Date()
+        const {times,repeat_every} = plant.frequency
+        if(repeat_every==='week')
+        {
+            const interval = Math.trunc(7/times)
+            nextTime.setDate(now.getDate()+interval)
+        }
+
+
         const data = await AsyncStorage.getItem('@plantmanager:plants')
         const oldPlants = data ?(JSON.parse(data) as StoragePlantProps):{}
         const newPlant = {
@@ -71,3 +83,13 @@ export async function loadPlant():Promise<PlantProps[]>
         throw new Error(error);
     }
 }
+export async function removePlant(id:string):Promise<void>
+{
+    const data = await AsyncStorage.getItem('@plantmanager:plants')//pega o dado da planta
+    const plants = data?(JSON.parse(data) as StoragePlantProps):{}//vê se tem alguma coisa ou não nos dados
+    delete plants[id]//remove
+    await AsyncStorage.setItem('@plantmanager:plants',//salva os dados de novo
+        JSON.stringify(plants)
+        )
+}
+
