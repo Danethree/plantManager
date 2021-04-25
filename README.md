@@ -1,4 +1,7 @@
 <h1> Plant Manager</h1>
+
+ [![React Native Badge](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]("")  [![Yarn Badge](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)]("")  [![Node Badge](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)]("") [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/)
+  
 <p> Plant Manager é um aplicativo que te estimula a cuidar das plantas de sua casa.</p>
 <h2>Detalhes do aplicativo:</h2>
 <figure>
