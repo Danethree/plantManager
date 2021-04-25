@@ -81,7 +81,7 @@ npm -v
 
 <p>Se o power shell retornar as versões do Node e do NPM, a instalação foi bem sucedida</p>
 
-<h2>Instalando o yarn</p>
+<h2>Instalando o yarn</h2>
 <p> O yarn é opcional, porém caso opte por instalar o yarn, ele pode oferecer algumas vantagens, como por exemplo, uma velocidade maior de download e instalação de 
  pacotes comparada ao npm. Para baixá-lo execute o comando: </p>
  
@@ -102,9 +102,11 @@ yarn global add expo-cli
 npm install expo-cli --global
 ```
 <p> Verifique se o expo foi instalado através do comando:</p>
+
 ```bash
 expo --version
 ```
+
 <p> Agora o ambiente está pronto para rodar a aplicação. Após clonar a aplicação no github, pressione a tecla windows + r e digite cmd. Vá até 
  a pasta onde você salvou o arquivo plantmanager com o comando:</p>
  
@@ -133,7 +135,7 @@ ipconfig
  json-server ./src/services/server.json --host 192.168.1.2 --port 3333 --delay 700
  ```
  
- <p>Com isso, abra o navegador, digite o seu endereço de ip no seguinte formato:
+ <p>Com isso, abra o navegador, digite o seu endereço de ip no seguinte formato:</p>
  
  ```http
  http://seuip:3333/plants
